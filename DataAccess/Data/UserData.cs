@@ -18,7 +18,7 @@ namespace DataAccess.Data
 
         public async Task<UserModel?> GetUser(int id)
         {
-            var results = await _dataAccess.LoadData<UserModel, dynamic>("[dbo].[GetUserByID]", new { ID = id });
+            var results = await _dataAccess.LoadData<UserModel, dynamic>("[dbo].[GetUserByID]", new { id = id });
             return results.FirstOrDefault();
         }
 
@@ -27,7 +27,7 @@ namespace DataAccess.Data
             return _dataAccess.SaveData("[dbo].[InsertUser]", new { user.FirstName, user.LastName });
         }
 
-        public Task UpdateUser(UserModel user) => _dataAccess.SaveData("[dbo].[UpdateUserByID]", user);
+        public Task UpdateUser(UserModel user) => _dataAccess.SaveData("[dbo].[UpdateUserByID]", new { id = user.UserId, firstname = user.FirstName, lastname = user.LastName});
 
         public Task DeleteUser(int id)
         {

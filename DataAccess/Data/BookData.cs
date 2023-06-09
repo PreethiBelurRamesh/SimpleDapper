@@ -36,4 +36,8 @@ public class BookData : IBookData
         await _dataAccess.InsertSingleRow<dynamic>(sql, new { bookname = book.Book_Name });
     }
 
+    public async Task<IEnumerable<BookModel>> GetAllBooks()
+    {
+        return await _dataAccess.LoadData<BookModel, dynamic>("[dbo].[GetAllBooks]", new { });
+    }
 }

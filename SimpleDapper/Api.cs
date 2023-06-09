@@ -17,6 +17,7 @@ namespace SimpleDapper
             app.MapGet("/GetBooksDownloadedByUser/{id}", GetBooksDownloaded);
             app.MapPost("/InsertNewBook",InsertNewBook);
             app.MapPost("/InsertDownloadData", InsertDownloadData);
+            app.MapGet("/GetAllBooks", GetBooks);
         }
 
         private static async Task<IResult> GetUsers(IUserData data)
@@ -140,5 +141,18 @@ namespace SimpleDapper
 
             }
         }
+
+        private static async Task<IResult> GetBooks(IBookData data)
+        {
+            try
+            {
+                return Results.Ok(await data.GetAllBooks());
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
+        }
+
     }
 }
